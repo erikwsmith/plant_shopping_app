@@ -4,7 +4,7 @@ import CartItem from './CartItem';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-
+    const [addedToCart, setAddedToCart] = useState([]);
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -232,7 +232,6 @@ function ProductList({ onHomeClick }) {
         fontSize: '30px',
         textDecoration: 'none',
     }
-
     const handleHomeClick = (e) => {
         e.preventDefault();
         onHomeClick();
@@ -251,6 +250,8 @@ function ProductList({ onHomeClick }) {
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
+    };
+    const handleAddToCart = (e) => {
     };
     return (
         <div>
@@ -277,7 +278,7 @@ function ProductList({ onHomeClick }) {
                     <div>
                         {plantsArray.map((category, index)=>(
                             <div className="product-list" id={`category_${index}`}>
-                                <div className="product-title">
+                                <div className="category-title">
                                     {category.category}
                                 </div>
                                 <div className="product-cards">
@@ -287,6 +288,7 @@ function ProductList({ onHomeClick }) {
                                         <div className="product-title">{plant.name}</div>
                                         <div>{plant.description}</div>
                                         <div className="product-price">{plant.cost}</div>
+                                        <button className="product-button">Add to Cart</button>
                                     </div>
                                 ))}    
                                 </div>                                                            

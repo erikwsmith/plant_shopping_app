@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {Modal, Button} from 'react-bootstrap';
-import './ProductList.css'
+import './ProductList.css';
 import CartItem from './CartItem';
 import {addItem} from './CartSlice';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
@@ -12,10 +13,10 @@ function ProductList({ onHomeClick }) {
     const [addedToCart, setAddedToCart] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [modalText, setModalText] = useState("");
-
-  const showModal = () => setOpenModal(true);
-  const closeModal = () => setOpenModal(false);
-      const plantsArray = [
+    const [selectedBtn, setSelectedBtn] = useState(false);
+    const handlecloseModal = () => setOpenModal(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const plantsArray = [
         {
             category: "Air Purifying Plants",
             plants: [
@@ -246,7 +247,6 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         onHomeClick();
     };
-
     const handleCartClick = (e) => {
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
@@ -256,15 +256,16 @@ function ProductList({ onHomeClick }) {
         setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
         setShowCart(false); // Hide the cart when navigating to About Us
     };
-
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
     };
     const handleAddToCart = (item) => {        
-        dispatch(addItem(item));
-        setAddedToCart((prevState)=>[...prevState, item]);
-        showModal();
+        dispatch(addItem({...item, selected: true}));
+        const newCartObj = {...item, selected: true};
+        setAddedToCart((prevState)=>[...prevState, newCartObj]);
+        setModalText(item.name);
+        handleOpenModal();
     };
     return (
         <div>
@@ -300,12 +301,23 @@ function ProductList({ onHomeClick }) {
                                         <div className="product-title">{plant.name}</div>
                                         <div>{plant.description}</div>
                                         <div className="product-price">{plant.cost}</div>
-                                        <button className="product-button" onClick={()=>handleAddToCart(plant)}>Add to Cart</button>
+                                        <button className={plant.selected? "product-button added-to-cart" : "product-button"}
+                                            onClick={()=>handleAddToCart(plant)}>Add to Cart</button>                                       
                                     </div>
                                 ))}    
                                 </div>                                                            
                             </div>
                         ))}
+                        <Modal show={openModal} onHide={handlecloseModal} className="modal">
+                            <Modal.Header>
+                            <Modal.Title className="w-100 text-center">You added {modalText} to your Cart.</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Footer className="d-flex justify-content-center">                            
+                            <Button className="modal-btn" variant="primary" onClick={handlecloseModal}>
+                                OK
+                            </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div>      
                 </div>
             ) : (

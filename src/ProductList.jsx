@@ -13,7 +13,6 @@ function ProductList({ onHomeClick }) {
     const [addedToCart, setAddedToCart] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [modalText, setModalText] = useState("");
-    const [selectedBtn, setSelectedBtn] = useState(false);
     const handlecloseModal = () => setOpenModal(false);
     const handleOpenModal = () => setOpenModal(true);
     const plantsArray = [
@@ -223,6 +222,8 @@ function ProductList({ onHomeClick }) {
             ]
         }
     ];
+    const [plantData, setPlantData] = useState(plantsArray);
+
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
@@ -260,13 +261,16 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
-    const handleAddToCart = (item) => {        
-        dispatch(addItem({...item, selected: true}));
-        const newCartObj = {...item, selected: true};
+    const handleAddToCart = (item) => {   
+        const newCartObj = {...item, selected: true};    
+        dispatch(addItem(newCartObj));
         setAddedToCart((prevState)=>[...prevState, newCartObj]);
         setModalText(item.name);
         handleOpenModal();
     };
+    const styleAddedButton = () => {
+        
+    }
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -301,14 +305,22 @@ function ProductList({ onHomeClick }) {
                                         <div className="product-title">{plant.name}</div>
                                         <div>{plant.description}</div>
                                         <div className="product-price">{plant.cost}</div>
-                                        <button className={plant.selected? "product-button added-to-cart" : "product-button"}
-                                            onClick={()=>handleAddToCart(plant)}>Add to Cart</button>                                       
+                                        {addedToCart.find((obj)=>obj.name === plant.name) ?                                        
+                                            (<button 
+                                                className="product-button added-to-cart" 
+                                                onClick={()=>handleAddToCart(plant)}
+                                                disabled>Added to Cart
+                                            </button>) : 
+                                            (<button
+                                                className="product-button" 
+                                                onClick={()=>handleAddToCart(plant)}>Add to Cart
+                                            </button> )}                                
                                     </div>
                                 ))}    
                                 </div>                                                            
                             </div>
                         ))}
-                        <Modal show={openModal} onHide={handlecloseModal} className="modal">
+                        {/*<Modal show={openModal} onHide={handlecloseModal} className="modal">
                             <Modal.Header>
                             <Modal.Title className="w-100 text-center">You added {modalText} to your Cart.</Modal.Title>
                             </Modal.Header>
@@ -317,7 +329,7 @@ function ProductList({ onHomeClick }) {
                                 OK
                             </Button>
                             </Modal.Footer>
-                        </Modal>
+                    </Modal>*/}
                     </div>      
                 </div>
             ) : (

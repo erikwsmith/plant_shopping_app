@@ -47,6 +47,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+
 }
 
 .content p,
@@ -110,15 +111,23 @@
 .product-list-container.visible {
   top: 0;
 }
+@media screen and (max-width: 860px){
+    .luxury {
+        justify-content: center;
+    }
+}
 /* LandingPage.css */
 @media screen and (max-width: 768px) {
+
   .content {
     flex-direction: column;
     align-items: center;
     width: 100vw;
     height: 100vh;
   }
-
+  .content h1 {
+    font-size: 32px;
+  }
   .landing_content {
     margin-top: 100px; /* Adjust as needed */
     margin-left: 0;
@@ -130,15 +139,47 @@
     margin-top: 20px; /* Adjust as needed */
     width: 80%; /* Adjust as needed */
   }
+
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
   .landing_content {
     margin-top: 50px; /* Adjust as needed */
-    width: 90%; /* Adjust as needed */
+    width: 90%; /* Adjust as needed */  
   }
-
+  .content h1 {
+    font-size: 32px;
+}
+.content p {
+    font-size: 18px;
+}
   .aboutus_container {
     width: 90%; /* Adjust as needed */
   }
+  .get-started-button {
+    padding: 15px 20px;
+    font-size: 22px;
+    margin-top: 20px;
+  }
 }
+@media screen and (max-height: 375px) {
+    .landing_content {
+      margin-top: 10px; /* Adjust as needed */
+      width: 90%; /* Adjust as needed */
+      min-height: 100%;
+    }
+    .content h1 {
+      font-size: 22px;
+  }
+  .content p {
+      font-size: 18px;
+  }
+    .aboutus_container {
+      width: 90%; /* Adjust as needed */
+    }
+    .get-started-button {
+      padding: 15px 20px;
+      font-size: 22px;
+      margin-top: 20px;
+    }
+  }

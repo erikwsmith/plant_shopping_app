@@ -222,15 +222,15 @@ function ProductList({ onHomeClick }) {
         color: '#fff!important',
         padding: '15px',
         display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        alignIems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '1100px',
+        width: '50%',
     }
     const styleA = {
         color: 'white',

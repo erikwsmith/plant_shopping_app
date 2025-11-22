@@ -160,7 +160,7 @@ body {
 .tag {
     width: 400px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -174,10 +174,11 @@ body {
 .luxury {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 650px;
     font-size: 19px;
 }
+
 .cart{
     color: white;
     display: flex;
@@ -244,7 +245,7 @@ body {
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 864px) {
     .product-card {
       flex: 1 1 calc(50% - 20px); /* Adjust width for 2 cards per row with 20px gap on small screens */
       max-width: calc(50% - 20px); /* Adjust max-width for 2 cards per row with 20px gap on small screens */
@@ -256,7 +257,8 @@ body {
     
       .tag {
         margin-bottom: 20px; /* Add margin bottom for spacing */
-        text-align: center; /* Align text to the center */
+        justify-content: flex-start;
+
       }
     
       .ul {
